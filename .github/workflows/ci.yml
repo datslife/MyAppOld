@@ -1,0 +1,114 @@
+name: Build Android and iOS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  # install-and-test:
+  #   runs-on: ubuntu-latest
+  #   steps: 
+  #     - uses: actions/checkout@v2
+  #     - name: Install npm dependencies
+  #       run: |
+  #         npm install
+      # - name: Run tests
+      #   run: |
+      #     npm test
+  # build-ios:
+  #   needs: install-and-test
+  #   runs-on: [self-hosted, macos]
+  #   steps: 
+  #     - uses: actions/checkout@v2
+  #     - name: Install npm dependencies
+  #       run: |
+  #         npm install
+  #     - name: Install pod dependencies
+  #       run: |
+  #         cd ios && pod install
+  #     - name: Build app
+  #       run: |       
+  #         xcodebuild -workspace MyApp.xcworkspace -scheme MyApp archive -archivePath MyApp.xcarchive -allowProvisioningUpdates
+  #         xcodebuild -exportArchive -archivePath ./MyApp.xcarchive -exportPath . -exportOptionsPlist MyApp/Info.plist
+  #         mv MyApp.ipa ../MyApp.ipa
+  #     - name: Upload Artifact
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: myapp.ipa
+  #         path: ios/build/
+  # build-android:
+  #   # needs: install-and-test
+  #   runs-on: ubuntu-latest
+  #   steps: 
+  #     # - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: my-branch
+  #     - name: Install npm dependencies
+  #       run: |
+  #         npm install
+  #     - name: Build Android Release
+  #       run: |
+  #         cd android && ./gradlew assembleRelease
+  #         # // -PMYAPP_UPLOAD_STORE_PASSWORD='AAAAAAA' -PMYAPP_UPLOAD_KEY_PASSWORD='BBBBBBB'
+  #     - name: Upload Artifact
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: app-release-android1.apk
+  #         path: android/app/build/outputs/apk/release/app-release.apk
+  build-ios:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install gpg
+        run: brew install gnupg
+        
+      # - name: Switch XCode Version
+      #   run: sudo xcode-select -s /Applications/Xcode_11.2.app
+
+      # - name: Cache NPM dependencies
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.OS }}-npm-cache-
+      - name: Install yarn dependencies
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          yarn --frozen-lockfile
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Cache Pods dependencies111
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ios/Pods
+      #     key: ${{ runner.OS }}-pods-cache-${{ hashFiles('**/ios/Podfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.OS }}-pods-cache-
+      - name: Install pod dependencies
+        run: |
+          cd ios
+          pod install
+        shell: bash
+      - name: Setup provisioning profile
+        run: ./.github/secrets/decrypt_secrets.sh
+        env:
+          IOS_PROFILE_KEY: ${{ secrets.IOS_PROFILE_KEY }}
+      # - name: Build app
+      #   run: |
+      #     cd ios && xcodebuild archive \
+      #       -workspace MyApp.xcworkspace \
+      #       -scheme MyApp \
+      #       -configuration Release \
+      #       -archivePath $PWD/build/MyApp.xcarchive \
+      #       IPHONEOS_DEPLOYMENT_TARGET=9.0
+      #       PROVISIONING_PROFILE="459ccb13-5b0e-42e6-b9e0-f1d77de3423b" \
+      #       CODE_SIGN_IDENTITY="Apple Development: Hung Luu (R676PV9D77)"
+      # - name: Export app
+      #   run: |
+      #     cd ios && xcodebuild \
+      #       -exportArchive \
+      #       -archivePath $PWD/build/MyApp.xcarchive \
+      #       -exportOptionsPlist $PWD/ci.plist \
+      #       -exportPath $PWD/build
