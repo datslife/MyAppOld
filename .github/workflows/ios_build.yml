@@ -11,9 +11,9 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
-      - name: Run tests
-        run: |
-          npm test
+      # - name: Run tests
+      #   run: |
+      #     npm test
   # build-ios:
   #   needs: install-and-test
   #   runs-on: [self-hosted, macos]
@@ -105,10 +105,10 @@ jobs:
             IPHONEOS_DEPLOYMENT_TARGET=9.0
             PROVISIONING_PROFILE="459ccb13-5b0e-42e6-b9e0-f1d77de3423b" \
             CODE_SIGN_IDENTITY="Apple Development: Hung Luu (R676PV9D77)"
-      # - name: Export app
-      #   run: |
-      #     cd ios && xcodebuild \
-      #       -exportArchive \
-      #       -archivePath $PWD/build/MyApp.xcarchive \
-      #       -exportOptionsPlist $PWD/ci.plist \
-      #       -exportPath $PWD/build
+      - name: Export app
+        run: |
+          cd ios && xcodebuild \
+            -exportArchive \
+            -archivePath $PWD/build/MyApp.xcarchive \
+            -exportOptionsPlist $PWD/ci.plist \
+            -exportPath $PWD/build
