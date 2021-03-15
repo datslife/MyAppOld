@@ -115,12 +115,11 @@ jobs:
         #   -archivePath $PWD/MyApp \
         #   CODE_SIGNING_ALLOWED=NO"
       - name: Archiving project
-        run: "xcodebuild -workspace MyApp.xcworkspace \
-            -scheme MyApp\ iOS \
-            -sdk iphoneos \
+        run: cd ios && xcodebuild -workspace MyApp.xcworkspace \
+            -scheme MyApp
             -configuration Debug \
             -archivePath $PWD/build/MyApp.xcarchive \
-            clean archive | xcpretty"
+            clean archive
       # - name: Export app
       #   run: |
       #     cd ios && xcodebuild \
