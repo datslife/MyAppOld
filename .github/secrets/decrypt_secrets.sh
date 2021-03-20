@@ -32,7 +32,7 @@ gpg --quiet --batch --yes --decrypt --passphrase="$IOS_PROFILE_KEY" --output ./.
 
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 
-cp ./.github/secrets/mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/mobileprovision
+cp ./.github/secrets/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/86ce4d81-fd7e-46b2-ae6a-3092b4af6cd7.mobileprovision
 
 security create-keychain -p "" $KEYCHAIN_PATH
 security import ./.github/secrets/Certificates.p12 -t agg -k $KEYCHAIN_PATH -P "" -A
