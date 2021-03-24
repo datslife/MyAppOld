@@ -1,4 +1,4 @@
-# #!/bin/sh
+#!/bin/sh
 # https://zach.codes/ios-builds-using-github-actions-without-fastlane/
 
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_PROFILE_KEY" --output ./.github/secrets/profile.mobileprovision ./.github/secrets/profile.mobileprovision.gpg

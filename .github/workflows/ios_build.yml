@@ -122,5 +122,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app-release-ios.apk
-          path: ios/build/release/app-release-ios.apk
+          name: app-release-ios.ipa
+          path: ios/build/release/Apps/MyApp.ipa
