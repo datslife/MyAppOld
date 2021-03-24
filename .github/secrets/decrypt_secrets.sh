@@ -1,4 +1,5 @@
 # #!/bin/sh
+# https://zach.codes/ios-builds-using-github-actions-without-fastlane/
 
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_PROFILE_KEY" --output ./.github/secrets/profile.mobileprovision ./.github/secrets/profile.mobileprovision.gpg
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_PROFILE_KEY" --output ./.github/secrets/Certificates.p12 ./.github/secrets/Certificates.p12.gpg
@@ -18,11 +19,14 @@ KEYCHAIN_PASSWORD="MyApp"
 security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
 
 # Append keychain to the search list
+# Be careful to use security list-keychains -s to append your keychain,
+# else, you will clobber builds running in another thread
 security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | sed s/\"//g)
 security list-keychains
 
-# Unlock the keychain
+# Unlocks temporary keychain with no automatic relocking timeout
 security set-keychain-settings "$KEYCHAIN"
+# Unlock the keychain
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
 
 # Import the private key/certificate (*.p12) for your CodeSign identity
