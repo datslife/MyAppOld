@@ -25,7 +25,7 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
 
 # Import certificate
 # security import ./.github/secrets/Certificates.p12 -k "$KEYCHAIN" -P "" -T "/usr/bin/codesign"
-security import ./.github/secrets/Certificates.p12 -t agg -k "$KEYCHAIN" -P "$KEYCHAIN_PASSWORD" -A
+security import ./.github/secrets/Certificates.p12 -t agg -k $KEYCHAIN -P "" -A
 
 # New requirement for MacOS 10.12+
 security set-key-partition-list -S apple-tool:,apple: -s -k $KEYCHAIN_PASSWORD $KEYCHAIN
