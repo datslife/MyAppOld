@@ -10,6 +10,9 @@ cp ./.github/secrets/profile.mobileprovision ~/Library/MobileDevice/Provisioning
 # Create temporary keychain
 KEYCHAIN="MyApp$$.keychain"
 KEYCHAIN_PASSWORD="MyApp"
+
+# Create your build Keychain. This will contain the private key/certificate used for codesigning
+# The keychain_password is up to you. You'll use this later to unlock the keychain during the build.
 security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
 
 # Append keychain to the search list
@@ -21,7 +24,8 @@ security set-keychain-settings "$KEYCHAIN"
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
 
 # Import certificate
-security import ./.github/secrets/Certificates.p12 -k "$KEYCHAIN" -P "" -T "/usr/bin/codesign"
+# security import ./.github/secrets/Certificates.p12 -k "$KEYCHAIN" -P "" -T "/usr/bin/codesign"
+security import ./.github/secrets/Certificates.p12 -t agg -k "$KEYCHAIN" -P "$KEYCHAIN_PASSWORD" -A
 
 # New requirement for MacOS 10.12+
 security set-key-partition-list -S apple-tool:,apple: -s -k $KEYCHAIN_PASSWORD $KEYCHAIN
