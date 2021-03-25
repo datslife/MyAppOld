@@ -29,11 +29,10 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew assembleRelease
-          # // -PMYAPP_UPLOAD_STORE_PASSWORD='AAAAAAA' -PMYAPP_UPLOAD_KEY_PASSWORD='BBBBBBB'
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app-release-android1.apk
+          name: app-release-android.apk
           path: android/app/build/outputs/apk/release/app-release.apk
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
