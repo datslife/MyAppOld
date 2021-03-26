@@ -20,15 +20,15 @@ jobs:
     # needs: install-and-test
     runs-on: ubuntu-latest
     steps: 
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       #   with:
       #     ref: my-branch
-      # - name: Install npm dependencies
-      #   run: |
-      #     npm install
-      # - name: Build Android Release
-      #   run: |
-      #     cd android && ./gradlew bundleRelease
+      - name: Install npm dependencies
+        run: |
+          npm install
+      - name: Build Android Release
+        run: |
+          cd android && ./gradlew bundleRelease
       # - name: Upload Artifact
       #   uses: actions/upload-artifact@v1
       #   with:
@@ -40,8 +40,8 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: myappgroup
-          file: ios/build/Apps/MyApp.ipa
-          # file: app/build/outputs/apk/release/app-release.apk
+          # file: ios/build/Apps/MyApp.ipa
+          file: app/build/outputs/apk/release/app-release.apk
   # build-ios:
   #   runs-on: macOS-latest
   #   steps:
