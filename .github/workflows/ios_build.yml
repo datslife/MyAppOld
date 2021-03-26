@@ -1,4 +1,5 @@
 # https://blog.logrocket.com/react-native-ci-cd-using-github-actions/
+# https://github.com/wzieba/Firebase-Distribution-Github-Action/blob/master/.github/workflows/main.yml
 
 name: Build Android and iOS
 on:
@@ -41,7 +42,7 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: myappgroup
           # file: ios/build/Apps/MyApp.ipa
-          file: app/build/outputs/apk/release/app-release.apk
+          file: android/app/build/outputs/apk/release/app-release.apk
   # build-ios:
   #   runs-on: macOS-latest
   #   steps:
