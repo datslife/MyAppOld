@@ -40,7 +40,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: myappgroup
-          file: android/app/build/outputs/apk/release/app-release.apk
+          file: app/build/outputs/apk/release/app-release.apk
   # build-ios:
   #   runs-on: macOS-latest
   #   steps:
