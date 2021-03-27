@@ -19,7 +19,8 @@ jobs:
       #     npm test
   build-android:
     # needs: install-and-test
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps: 
       - uses: actions/checkout@v2
       #   with:
