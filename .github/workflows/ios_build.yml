@@ -52,7 +52,7 @@ jobs:
         run: |
           yarn global add firebase-tools
           export PATH="$(yarn global bin):$PATH"
-          firebase appdistribution:distribute ci/MyApp.ipa --app 1:1089801785807:ios:ae5794ed43477cbbd9c2ba --token "1//0gtSmrN21xYzhCgYIARAAGBASNwF-L9IrtXzBaT1_DSAVUU8bjhiz6Ai_esq2Kai6WpXBdsnZmfV5rkbUD6KOIdva8dzSpWt_TZE"
+          firebase appdistribution:distribute ci/MyApp.ipa --app 1:1089801785807:ios:ae5794ed43477cbbd9c2ba --token "1//0gtSmrN21xYzhCgYIARAAGBASNwF-L9IrtXzBaT1_DSAVUU8bjhiz6Ai_esq2Kai6WpXBdsnZmfV5rkbUD6KOIdva8dzSpWt_TZE" --debug
           # firebase \
           #   appdistribution:distribute ci/MyApp.ipa \
           #   --app $firebaseAppId \
