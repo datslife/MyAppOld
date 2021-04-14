@@ -51,7 +51,7 @@ jobs:
           # notes: ${{ github.event.head_commit.message }}
         run: |
           yarn global add firebase-tools
-          # export PATH="$(yarn global bin):$PATH"
+          export PATH="$(yarn global bin):$PATH"
           firebase \
             appdistribution:distribute ci/MyApp.ipa \
             --app $firebaseAppId \
