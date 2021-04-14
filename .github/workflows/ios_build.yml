@@ -35,29 +35,29 @@ jobs:
       #   with:
       #     name: app-release-android.apk
       #     path: android/app/build/outputs/apk/release/app-release.apk
-      - name: Upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID_IOS}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: myappgroup
-          file: ci/MyApp1.ipa
+      # - name: Upload artifact to Firebase App Distribution
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #   with:
+      #     appId: ${{secrets.FIREBASE_APP_ID_IOS}}
+      #     token: ${{secrets.FIREBASE_TOKEN}}
+      #     groups: myappgroup
+      #     file: ci/MyApp1.ipa
           # file: android/app/build/outputs/apk/release/app-release.apk
-      # - name: Distribute app via Firebase App Distribution
-      #   env:
-      #     firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
-      #     firebaseGroups: ${{ secrets.FIREBASE_GROUPS }}
-      #     firebaseAppId: ${{ secrets.FIREBASE_APP_ID_IOS }}
-      #     notes: ${{ github.event.head_commit.message }}
-      #   run: |
-      #     yarn global add firebase-tools
-      #     export PATH="$(yarn global bin):$PATH"
-      #     firebase \
-      #       appdistribution:distribute ci/MyApp.ipa \
-      #       --app $firebaseAppId \
-      #       --release-notes "$notes" \
-      #       --groups "$firebaseGroups" \
-      #       --token "$firebaseToken"
+      - name: Distribute app via Firebase App Distribution
+        env:
+          firebaseToken: ${{secrets.FIREBASE_TOKEN}}
+          # firebaseGroups: ${{ secrets.FIREBASE_GROUPS }}
+          firebaseAppId: ${{secrets.FIREBASE_APP_ID_IOS}}
+          # notes: ${{ github.event.head_commit.message }}
+        run: |
+          # yarn global add firebase-tools
+          # export PATH="$(yarn global bin):$PATH"
+          firebase \
+            appdistribution:distribute ci/MyApp.ipa \
+            --app $firebaseAppId \
+            # --release-notes "$notes" \
+            # --groups "$firebaseGroups" \
+            --token "$firebaseToken"
   # build-ios:
   #   runs-on: macOS-latest
   #   steps:
