@@ -50,7 +50,7 @@ jobs:
           firebaseAppId: ${{secrets.FIREBASE_APP_ID_IOS}}
           # notes: ${{ github.event.head_commit.message }}
         run: |
-          # yarn global add firebase-tools
+          yarn global add firebase-tools
           # export PATH="$(yarn global bin):$PATH"
           firebase \
             appdistribution:distribute ci/MyApp.ipa \
