@@ -11,3 +11,4 @@ AppRegistry.registerComponent(appName, () => App);
 
 // APP 
 // 1
+// 2
