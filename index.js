@@ -13,6 +13,3 @@ AppRegistry.registerComponent(appName, () => App);
 // 1
 // 2
 // 3
-
-// BRANCH 1
-// 1
