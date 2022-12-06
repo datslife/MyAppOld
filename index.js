@@ -17,3 +17,5 @@ AppRegistry.registerComponent(appName, () => App);
 // BRANCH 2
 // 1
 // 22222
+
+// Add tag v1.0.4
